@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>瀑布流</title>
+        <style media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            .wrap {
+                width: 90%;
+                margin: 20px auto;
+                overflow: hidden;
+                border: 1px solid red;
+            }
+            .wrap ul {
+                float: left;
+                width: 23%;
+                margin: 0 1%;
+                list-style: none;
+            }
+            .wrap ul li {
+                /*background-clip: content-box;*/
+                overflow: hidden;
+                box-shadow: 0 0 10px black;
+                margin-bottom: 20px;
+                border-radius: 2px;
+                /*overflow: hidden;*/
+            }
+            .wrap ul li img {
+                width: 100%;
+                height: 100%;
+                transition: all .4s ease-out;
+            }
+            .wrap ul li:hover img {
+                transform: scale(1.25);
+            }
+
+        </style>
+        <script type="text/javascript">
+            var load = function () {
+
+                // 获取元素
+                var wrap = document.querySelector('.wrap');
+                var uls = wrap.querySelectorAll('ul');
+
+                // 使用数组保存所有图片的名称
+                var imgsArr = [];
+                for (var i = 0; i < 28; i++) {
+                    var name = "imgs/img_" + i + ".jpg";
+                    var img = new Image();
+                    img.src = name;
+                    imgsArr.push(img);
+                }
+
+                // 创建li，并添加图片
+                function createLi() {
+                    for (var i = 0; i < imgsArr.length; i++) {
+                        // 创建图片对象
+                        imgsArr[i].onload = function () {
+                            // 获取图片的宽高
+                            var width = this.width;
+                            var height = this.height;
+                            // 计算真实的高度
+                            var height2 = uls[0].offsetWidth * height / width;
+
+                            // 创建li标签
+                            var li = document.createElement('li');
+                            li.style.height = height2 + 'px';
+
+                            // 拼接到最短的ul中
+                            var minUl = uls[0];
+                            for (var j = 0; j < uls.length; j++) {
+                                if (minUl.offsetHeight > uls[j].offsetHeight) {
+                                    minUl = uls[j];
+                                }
+                            }
+                            minUl.appendChild(li);
+
+                            // 拼接图片
+                            li.innerHTML = "<img src='" + this.src + "'>";
+                        }
+                    }
+                }
+                createLi();
+            }
+
+            window.onload = load;
+            window.onresize = function () {
+                location.reload();
+            };
+
+        </script>
+    </head>
+    <body>
+        <div class="wrap">
+            <ul></ul>
+            <ul></ul>
+            <ul></ul>
+            <ul></ul>
+        </div>
+    </body>
+</html>
