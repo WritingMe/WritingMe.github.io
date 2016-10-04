@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>文帅简历-学习经历</title>
+  <style type="text/css">
+    body { perspective: 3000px;background: lavender;color: white;font-family: "楷体"}
+    #box {
+      width: 1220px; height: 500px;background:url("../images/blackboard.jpg");
+      background-size: 1220px 500px;
+      margin: 100px auto 0;
+      transform: rotateX(0deg) rotateY(0deg);
+      transition: .3s ease;
+    }
+    #box .contain {
+      width: 1220px; height: 500px;
+      border-radius: 10px;
+      transform-style: preserve-3d;
+      transition: .3s ease;      
+    }
+    #box .contain {
+      position: relative;
+    }
+    #box div {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1220px; height: 500px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+    #box #text{
+      width: 800px;height: 300px;/*background: red;*/
+      position: absolute;
+      left: 210px;top: 100px;
+    }
+    #box #btn{
+      width:50px;
+      position: relative;
+      z-index: 5;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <div class="contain">
+      <div class="layer_1"></div>
+      <div class="layer_2"></div> 
+      <div id="text">
+          <h1>学习经历</h1>
+          <p>学&nbsp&nbsp&nbsp&nbsp位：<span>本科</span></p>
+          <p>就地学校：<span>石家庄经济学院华信学院</span></p>
+          <p>所学专业：<span>计算机科学与技术</span></p>
+          <p>就读时间：<span>2011年9月-2015年6月</span></p>
+          <p>学习描述：<span>本人在校期间，积极参加各种活动，在校内实验室的小组中负责重要的任务，学习期间，学习过C语言，C++，JAVA等编程语言，对计算机的硬件设施也比较了解，具有较好的编程思想和团队协作能力和较好的语言沟通能力</span><br><span>在校期间，本人由于实验室的项目，所以对前端的知识学习较多，自学掌握了前端的html和css，javaScript等语言，可以实现与后台人员的交互工作</span></p>
+      </div>   
+     <a href="../index.html"><img src="../images/button.JPG" alt="返回" id="btn"></a>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  
+var oBox = document.getElementById('box');
+var aLayer = oBox.children[0].children;
+var cX = oBox.offsetWidth / 2;
+var cY = oBox.offsetHeight / 2;
+var timer = null;
+
+oBox.onmouseover = function(){
+  clearTimeout(timer);
+  timer = setTimeout(function(){
+    oBox.style.transition = oBox.children[0].style.transition = "0s";
+  },500);
+};
+
+oBox.onmousemove = function(ev){
+
+  var x = (ev.offsetY - cY) / 40;
+  var y = (ev.offsetX - cX) / 80;
+
+  oBox.style.transform = "rotateX(" + -x + "deg) rotateY(" + y + "deg)";
+  oBox.children[0].style.boxShadow = -y*1.2 + "px " + -x*1.2 + "px 80px 0px rgba(0,0,0,.2)";
+  aLayer[0].style.transform = "translate3d(" + -y + "px," + -x/5 + "px,0px)";
+  aLayer[1].style.transform = "translate3d(" + y + "px," + x/5 + "px,0px)";
+
+};
+
+oBox.onmouseout = function(){
+  oBox.style.transition = oBox.children[0].style.transition = ".3s";
+  oBox.style.transform = "rotateX(0deg) rotateY(0deg)";
+  aLayer[0].style.transform = "translate3d(0px,0px,0px)";
+  aLayer[1].style.transform = "translate3d(0px,0px,0px)";
+};
+
+
+</script>
+</html>

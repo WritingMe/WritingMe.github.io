@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>文帅简历-工作经历</title>
+  <style type="text/css">
+    body { perspective: 3000px;background: lavender;color: white;font-family: "楷体"}
+    #box {
+      width: 1220px; height: 500px;background:url("../images/blackboard.jpg");
+      background-size: 1220px 500px;
+      margin: 100px auto 0;
+      transform: rotateX(0deg) rotateY(0deg);
+      transition: .3s ease; 
+    }
+    #box .contain {
+      width: 1220px; height: 500px;
+      border-radius: 10px;
+      transform-style: preserve-3d;
+      transition: .3s ease;      
+    }
+    #box .contain {
+      position: relative;
+    }
+    #box div {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1220px; height: 500px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+    #box #text{
+      width: 800px;height: 300px;/*background: red;*/
+      position: absolute;
+      left: 210px;top: 100px;
+    }
+    #box #btn{
+      width:50px;
+      position: relative;
+      z-index: 5;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <div class="contain">
+      <div class="layer_1"></div>
+      <div class="layer_2"></div> 
+      <div id="text">
+          <h1>工作经历</h1>
+          <ul>
+            <li>2015.02 - 2015.07  北京鑫源联创技术有限公司  （6个月）</li>
+            <li>web前端开发</li>
+            <li>互联网/电子商务 | 企业性质：民营 | 规模：20-99人</li>
+            <li>工作描述： 工作描述：主要负责整个网站主站及所有客户页面效果图的制作与修改。制作网站专题活动。及协调其他部门完成网站的改版工作。配合开发人员完成程序的嵌套和页面调整，解决各个浏览器兼容性问题。效果图制作和切片； 焦点图插件的封装； 与后端开发人员的交接与合作。</li>
+          </ul>
+          <ul>
+            <li>2015.08 - 2016.09  小熊顾家  （1年2个月）</li>
+            <li>web前端工程师</li>
+            <li>互联网/电子商务</li>
+            <li>工作描述： </li>
+            <li>负责小熊顾家官网的开发和维护。官网的效果展示</li>
+            <li>代码的优化审查。</li>
+            <li>整个网站的改版和设计都参与。</li>
+          </ul>
+      </div>  
+      <a href="../index.html"><img src="../images/button.JPG" alt="返回" id="btn"></a> 
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  
+var oBox = document.getElementById('box');
+var aLayer = oBox.children[0].children;
+var cX = oBox.offsetWidth / 2;
+var cY = oBox.offsetHeight / 2;
+var timer = null;
+
+oBox.onmouseover = function(){
+  clearTimeout(timer);
+  timer = setTimeout(function(){
+    oBox.style.transition = oBox.children[0].style.transition = "0s";
+  },500);
+};
+
+oBox.onmousemove = function(ev){
+
+  var x = (ev.offsetY - cY) / 40;
+  var y = (ev.offsetX - cX) / 80;
+
+  oBox.style.transform = "rotateX(" + -x + "deg) rotateY(" + y + "deg)";
+  oBox.children[0].style.boxShadow = -y*1.2 + "px " + -x*1.2 + "px 80px 0px rgba(0,0,0,.2)";
+  aLayer[0].style.transform = "translate3d(" + -y + "px," + -x/5 + "px,0px)";
+  aLayer[1].style.transform = "translate3d(" + y + "px," + x/5 + "px,0px)";
+
+};
+
+oBox.onmouseout = function(){
+  oBox.style.transition = oBox.children[0].style.transition = ".3s";
+  oBox.style.transform = "rotateX(0deg) rotateY(0deg)";
+  aLayer[0].style.transform = "translate3d(0px,0px,0px)";
+  aLayer[1].style.transform = "translate3d(0px,0px,0px)";
+};
+
+
+</script>
+</html>
